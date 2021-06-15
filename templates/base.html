@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/cocktail.css">
+    <!-- <title>{% block title %}Cocktail Connection{% endblock %}</title> -->
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <!-- <a class="navbar-brand" href="/"><img id=navImg src="/static/name_logo.png" alt="" srcset=""></a> -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav"><a id="nav_drinks" class="nav-link mr-4" href="/drinks/page1">Drinks</a></div>
+            <form action="/search" id='search_form' method="GET">
+                <div class="input-group pl-0">
+                    <input class="form-control my-0 py-1" id="search_input" type="text" placeholder="Search for a drink" name='search'>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-light" id="search_btn" ><i class="fas fa-search text-grey"aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="navbar-nav ml-auto">
+                {% if 'user' not in session %}
+                <a id="nav_login" class="nav-link cursor-pointer" href="/user/login">Login</a>
+                <a id="nav_register" class="nav-link" href="/user/signup">Register</a>
+                {% else %}
+                <a id="nav_avatar" class="nav-link" href="/user"><i class="far fa-user-circle fa-2x"></i></a>
+                <a id="nav_fav" class="nav-link" href="/user/favorites">Favorites</a>
+                <a id="nav_recommends" class="nav-link" href="/user/recommendations">Recommendations</a>
+                <a id="nav_logout" class="nav-link" href="/user/logout">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- {% for category, message in get_flashed_messages(with_categories=True) %} -->
+
+    <!-- <div class="alert alert-{{ category }} col-4">{{ message }}</div> -->
+
+    {% endfor %}
+    {% block body %}
+
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <!-- <script src="/static/cocktail.js"></script> -->
+</body>
+</html>
