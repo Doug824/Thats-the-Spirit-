@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/cocktail.css">
-    <!-- <title>{% block title %}Cocktail Connection{% endblock %}</title> -->
+    <title>{% block title %}That's The Spirit!{% endblock %}</title>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
             <div class="navbar-nav ml-auto">
                 {% if 'user' not in session %}
                 <a id="nav_login" class="nav-link cursor-pointer" href="/user/login">Login</a>
-                <a id="nav_register" class="nav-link" href="/user/signup">Register</a>
+                <a id="nav_register" class="nav-link" href="/user/register">Register</a>
                 {% else %}
                 <a id="nav_avatar" class="nav-link" href="/user"><i class="far fa-user-circle fa-2x"></i></a>
                 <a id="nav_fav" class="nav-link" href="/user/favorites">Favorites</a>
@@ -39,10 +39,8 @@
             </div>
         </div>
     </nav>
-
-    <!-- {% for category, message in get_flashed_messages(with_categories=True) %} -->
-
-    <!-- <div class="alert alert-{{ category }} col-4">{{ message }}</div> -->
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{ category }} col-4">{{ message }}</div>
 
     {% endfor %}
     {% block body %}
@@ -53,6 +51,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
-    <!-- <script src="/static/cocktail.js"></script> -->
+    <script src="/static/cocktail.js"></script>
 </body>
 </html>
