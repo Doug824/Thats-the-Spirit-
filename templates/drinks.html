@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<table class="table table-striped">
+    <thead>
+        <tr align="center">
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Ingredients</th>
+            <th scope="col">Average Rating</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+    {% for drink in drinks %}
+        <tr>
+            <th scope="row">{{drink.id}}</th>
+            <td><a href="/drinks/{{drink.id}}">{{drink.name}}</a></td>
+            <td>
+                {% for drink_id in drink_ingreds %}
+                {% if drink.id == drink_id %}
+                {% for ingredient in drink_ingreds[drink_id] %}
+                {{ingredient}},
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td align="center">
+                {% if avg_ratings_dict[drink.id] == [] %}
+                -
+                {% else %}
+                {{avg_ratings_dict[drink.id]}}/5
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+    {% if page_num == 1 %}
+    <li class="page-item"><a class="page-link disabled">{{page_num}}</a></li>
+    <li class="page-item">
+        <a class="page-link" href="/drinks/page{{next_page}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+        </a>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a class="page-link" id="back_link" href="/drinks/page{{previous_page}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+        </a>
+    </li>
+    <li class="page-item"><a class="page-link disabled">{{page_num}}</a></li>
+    <li class="page-item">
+        <a class="page-link" href="/drinks/page{{next_page}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+        </a>
+    </li>
+    {% endif %}
+    </ul>
+</nav>
+
+{% endblock %}
