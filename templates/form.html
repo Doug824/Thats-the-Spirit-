@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container col-xs-1 col-md-6 mt-5">
+    <h3 class="mb-3">Select who you would like your recommendation sent to</h3>
+    <form action="/user/recommend/form{{drink_id}}" method="POST">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+
+            <span class="text-danger">{{ error }}</span>
+
+        {% endfor %}
+        {{ field(placeholder=field.label.text, class="form-control my-2") }}
+        {% endfor %}
+
+        <button id="recommend-btn" class="btn btn-primary">Recommend!</button>
+    </form>
+</div>
+
+{% endblock %}
