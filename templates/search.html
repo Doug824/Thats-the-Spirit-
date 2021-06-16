@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container col-12 mt-5">
+    <div class="row">
+    {% for drink in drinks %}
+        <div class="column col-xs-1 col-md-4 col-lg-2">
+            <div id='{{drink.id}}' class="card mx-2 d-inline-block align-top">
+                <img id="" class="card-img-top" src= '{{drink.image}}' alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title mb-0 d-inline-block">{{drink.name}}</h5>
+                    <p class="card-text">
+                    <ul>
+                    {% for drink_id in drink_ingreds %}
+                        {% if drink.id == drink_id %}
+                            {% for ingredient in drink_ingreds[drink_id] %}
+                            <li>{{ingredient}}</li>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                    </p>
+                    <a href="/drinks/{{drink.id}}" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
