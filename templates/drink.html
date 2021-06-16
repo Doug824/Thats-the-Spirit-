@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="jumbotron col-xs-1 col-md-6 mt-0">
+    <h1 class="display">{{drink.name}}
+    {% if 'user' in session %}
+    {% if fav_check == None %}
+        <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-off" ><i id="fav" class="fas fa-cocktail ml-5"></i></a>
+    {% else %}
+    <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-on" ><i id="fav" class="fas fa-cocktail ml-5"></i></a>
+    {% endif %}
+    {% endif %}
+    </h1>
+
+    <img src="{{drink.image}}" style="width: 350px;" alt="" srcset="">
+    <p class="lead d-inline-block">{{drink.instructions}}</p>
+    {% if 'user' in session %}
+    
+    <div class="d-flex mt-4 mb-0">
+            <form id="{{drink.id}}form" class="range-field w-15" action="/drink/{{drink.id}}" method="POST">
+                <button id='rate_btn' class="btn btn-primary mr-5" type="submit">Update Rating</button>
+                <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+                {% if rating == None %}
+                <input id="slider" class="border-0" type="range" min="0" max="5" step="0.5" value="0"/>
+                {% else %}
+                <input id="slider" class="border-0" type="range" min="0" max="5" step="0.5" value="{{rating.rating}}"/>
+                {% endif %}
+                <span class="font-weight-bold indigo-text ml-2 mt-1">5</span>
+            </form>
+        {% if rating == None %}
+        <h5 id="{{drink.id}}rate" class="d-inline float-right ml-5">0/5</h5>
+        {% else %}
+        <h5 id="{{drink.id}}rate" class="d-inline float-right ml-5">{{rating.rating}}/5</h5>
+        {% endif %}
+    </div>
+    
+    {% endif %}
+    
+    <hr class="my-4">
+    <ul>
+        {% for ingredient in ingredients %}
+            <li>{{names[loop.index-1].name}} - {{ingredient.amount}}</li>
+        {% endfor %}
+    </ul>
+    <button class="btn btn-primary" id='back' role="button">Back</button>
+</div>
+
+{% endblock %}
