@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% if recommends == [] %}
+<h3 class="ml-4 mt-4">No recommendations</h3>
+{% else %}
+<table class="table table-striped">
+    <thead>
+        <tr align ="center">
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Recommended by</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    
+    <tbody>
+    {% for drink_id in drinks %}
+        <tr>
+            <td align="center" scope="row">{{drinks[drink_id].id}}</td>
+            <td align="center"><a href="/drinks/{{drinks[drink_id].id}}">{{drinks[drink_id].name}}</a></td>
+            <td align="center">{{recommenders[drink_id]}}</td>
+            <td align="center"><button class="btn btn-sm btn-danger rec-remove" id="{{recommends[loop.index-1].id}}remove">Remove</button></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endif %}
+{% endblock %}
