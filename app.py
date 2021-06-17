@@ -175,7 +175,6 @@ def show_drinks(page_num):
     """Shows all drinks in DB. Limited to 50 per page"""
     next_page = page_num+1
     previous_page = page_num-1
-
     if page_num == 1:
         drinks = Drink.query.filter(Drink.id>0).order_by(Drink.id).limit(50).all()
     else:
@@ -200,7 +199,130 @@ def show_drinks(page_num):
             average = total/length
             avg_ratings_dict[drink.id]= average
             total = 0
-            length = 0
-    
+            length = 0    
     return render_template('drinks.html', page_num=page_num, drinks=drinks, drink_ingreds=drink_ingreds, next_page=next_page, previous_page=previous_page, avg_ratings_dict=avg_ratings_dict)
 
+@app.route('/drinks/<int:drink_id>', methods=['GET', 'POST'])
+def get_drink(drink_id):
+    """Drink info, creating/deleting ratings"""
+    try:
+        user_id = session['user']
+    except KeyError:
+        flash('Boooo! Log in if you want to favorite or rate drinks!', 'warning')
+        pass   
+    drink = Drink.query.get(drink_id)    
+
+    if request.method == 'POST':
+        rating = request.json['rating']
+        if float(rating) < 0 or float(rating) > 5:
+            flash('Please make sure you only rate between 0 and 5', 'danger')
+            return redirect(f'/drinks/{drink_id}')
+        rating_check = Rating.query.filter(Rating.user_id==user_id).filter(Rating.drink_id == drink_id).first()       
+        if rating_check is None:
+            new_rating = Rating(rating=rating, user_id=user_id, drink_id=drink_id)
+            db.session.add(new_rating)
+            db.session.commit()
+        else:
+            update_rating = Rating.query.get(rating_check.id)
+            update_rating.rating = rating
+            db.session.commit()
+        return redirect(f'/drinks/{drink_id}')
+    else:       
+        drink = Drink.query.get(drink_id)
+        if 'user' not in session:
+            rating = None
+            fav_check = None
+        else:
+            rating = Rating.query.filter(Rating.user_id==user_id).filter(Rating.drink_id == drink_id).first()
+            fav_check = Favorite.query.filter(Favorite.drink_id == drink_id).filter(Favorite.user_id == user_id).first()
+        
+        ingredients = Drinks_Ingredients.query.filter(Drinks_Ingredients.drink_id == drink.id).all()
+        names = []
+        for ingredient in ingredients:
+            ingredient_name = Ingredients.query.get(ingredient.ingredient_id)
+            names.append(ingredient_name)
+        return render_template('drink.html', drink=drink, ingredients=ingredients, fav_check=fav_check, rating=rating, names=names)
+
+@app.route('/user/favorites', methods=['GET', 'POST'])
+def get_favs():
+    """Show favorites, create/delete favorites"""
+    try:
+        user_id = session['user']
+    except KeyError:
+        flash('Log in to rate/favorite drinks', 'warning')
+        return redirect('/')   
+    if request.method == 'POST':
+        drink_id = request.json['drinkId']
+        
+        fav_check = Favorite.query.filter(Favorite.drink_id==drink_id).filter(Favorite.user_id == user_id).first()
+        if fav_check is None:
+            new_fav = Favorite(user_id=user_id, drink_id=drink_id)
+            db.session.add(new_fav)
+            db.session.commit()
+            favs = Favorite.query.filter(Favorite.user_id==user_id).all()
+            drinks = get_fav_drink_dict(favs)
+            drink_ingreds = get_fav_drink_ingredients(drinks)
+        else:
+            delete_fav = Favorite.query.get(fav_check.id)
+            db.session.delete(delete_fav)
+            db.session.commit()
+            favs = Favorite.query.filter(Favorite.user_id==user_id).all()
+            drinks = get_fav_drink_dict(favs)
+            drink_ingreds = get_fav_drink_ingredients(drinks)
+        return render_template('favorite.html', drinks=drinks, drink_ingreds=drink_ingreds)          
+    else:       
+        favs = Favorite.query.filter(Favorite.user_id==user_id).all()
+        drinks = get_fav_drink_dict(favs)
+        drink_ingreds = get_fav_drink_ingredients(drinks)        
+        return render_template('favorite.html', drinks=drinks, drink_ingreds=drink_ingreds)
+
+@app.route('/user/recommend/form<int:drink_id>', methods=['GET', 'POST'])
+def recommend_form(drink_id):
+    """Post recommendations, create new recommendation from POST"""
+    if 'user' not in session:
+        flash('Boooo! Log in if you want to send a recommendation!', 'danger')
+        return redirect('/')
+    form = RecommendForm()
+    user_id = session['user']
+    user = User.query.get(user_id)
+    drink = Drink.query.get(drink_id)
+
+    form = RecommendForm()
+    form.recommend_to_name.choices = [(user.id,user.username) for user in User.query.filter(User.id !=user_id).all()]
+    form.username.data = user.username
+    form.drink.data = drink.name
+    if request.method == 'POST':
+        username = form.username.data
+        recommend_to_id = form.recommend_to_name.data
+        drink = form.drink.data
+        user = User.query.filter(User.username==username).first()
+        drink = Drink.query.filter(Drink.name==drink).first()
+        new_recommend = Recommendation(recommender_id=user.id, recommend_to_user_id=recommend_to_id,drink_id=drink.id)
+        db.session.add(new_recommend)
+        db.session.commit()
+        return redirect('/user/favorites')
+    else:   
+        return render_template('form.html', form=form, drink_id=drink_id)
+
+@app.route('/user/recommendations', methods=["GET", 'POST'])
+def show_recommendations():
+    """Show recommendations, delete recommendations"""
+    if 'user' not in session:
+        flash('Please log in or sign up to get recommendations', 'danger')
+        return redirect('/')    
+    user_id = session['user']
+    if request.method == 'POST':
+        rec_id = request.json['recId']       
+        rec_to_delete = Recommendation.query.get(rec_id)
+        db.session.delete(rec_to_delete)
+        db.session.commit()
+        return redirect('/user/recommendations')
+    drinks = {}
+    recommenders = {}
+    recommends = Recommendation.query.filter(Recommendation.recommend_to_user_id==user_id).all()
+    for recommend in recommends:
+        drink = Drink.query.filter(Drink.id==recommend.drink_id).first()
+        drinks[recommend.recommender_id]=drink
+        recommender = User.query.filter(User.id==recommend.recommender_id).first()
+        recommenders[recommender.id]=recommender.username
+    return render_template('recommend.html', drinks=drinks, recommenders=recommenders, recommends=recommends)
