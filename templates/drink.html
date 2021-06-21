@@ -6,9 +6,13 @@
     <h1 class="display">{{drink.name}}
     {% if 'user' in session %}
     {% if fav_check == None %}
-        <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-off" ><i id="fav" class="fas fa-cocktail ml-5"></i></a>
+        <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-off" ><i id="fav" class="fas fa-cocktail ml-5"></i>
+            <p style="font-size:11px">Add to Favorites</p>
+        </a>
     {% else %}
-    <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-on" ><i id="fav" class="fas fa-cocktail ml-5"></i></a>
+    <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-on" ><i id="fav" class="fas fa-cocktail ml-5"></i>
+        <p style="font-size:11px">Remove from Favorites</p>
+    </a>
     {% endif %}
     {% endif %}
     </h1>

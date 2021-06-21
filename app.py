@@ -3,6 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Drink, Recommendation, Ingredients, Favorite, Rating, Drinks_Ingredients
 from functions import login, logout, get_fav_drink_dict, get_fav_drink_ingredients, get_drink_ingredients, get_count_dict, get_fav_ingredient
 from forms import RegisterForm, LoginForm, RecommendForm
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.sql import func
 import random
 KEY = "user"
@@ -43,12 +44,12 @@ def home():
     return render_template('home.html', distinct_drinks=distinct_drinks)
 
 @app.route('/user/register', methods=['GET','POST'])
-def sign_up_page():
+def register_page():
     """Registers user"""
     form = RegisterForm()
     if form.validate_on_submit():
         try:
-            user = User.signup(
+            user = User.register(
                 username=form.username.data,
                 first_name=form.first_name.data,
                 last_name=form.last_name.data,
@@ -308,7 +309,7 @@ def recommend_form(drink_id):
 def show_recommendations():
     """Show recommendations, delete recommendations"""
     if 'user' not in session:
-        flash('Please log in or sign up to get recommendations', 'danger')
+        flash('Please log in or register up to get recommendations', 'danger')
         return redirect('/')    
     user_id = session['user']
     if request.method == 'POST':
