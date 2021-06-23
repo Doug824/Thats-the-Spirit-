@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<div class="container col-xs-1 col-md-6 mt-5">
+<div class="container col-xs-1 col-md-6 mt-5" id="H3-drink-text">
     <h2>Please enter your information</h2>
     <form method="POST" id="login_form">
         {{ form.hidden_tag() }}
@@ -14,7 +14,7 @@
         {{ field(placeholder=field.label.text, class="form-control my-2") }}
         {% endfor %}
 
-        <button class="btn btn-primary btn-lg btn-block">Log In</button>
+        <button class="btn btn-primary btn-lg btn-block" id="card-btn">Log In</button>
     </form>
 </div>
 

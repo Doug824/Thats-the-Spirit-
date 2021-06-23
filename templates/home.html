@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<div class="container col-12 mt-4">
+<div class="container col-12 mt-4" id="H3-drink-text">
     <h3>Check out the drinks!:</h3>
     <div class="row mt-4">
     {% for drink in distinct_drinks %}
@@ -11,7 +11,7 @@
             <img class="card-img mt-3 px-3" src="{{drink.image}}" alt="Card image cap">
             <div class="card-body">
             <h5 class="card-title">{{drink.name}}</h5>
-            <a href="/drinks/{{drink.id}}" class="btn btn-primary">More Info</a>
+            <a href="/drinks/{{drink.id}}" class="btn btn-primary" id="card-btn">More Info</a>
             </div>
         </div>
     </div>

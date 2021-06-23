@@ -6,12 +6,16 @@
     <h1 class="display">{{drink.name}}
     {% if 'user' in session %}
     {% if fav_check == None %}
-        <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-off" ><i id="fav" class="fas fa-cocktail ml-5"></i>
-            <p style="font-size:11px">Add to Favorites</p>
+        <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-off" >
+            <i id="fav" class="fas fa-cocktail ml-5">
+                <p id="fav" class="add-favorite-font">Add to Favorites</p> 
+            </i>
         </a>
     {% else %}
-    <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-on" ><i id="fav" class="fas fa-cocktail ml-5"></i>
-        <p style="font-size:11px">Remove from Favorites</p>
+    <a id="{{drink.id}}fav" style="font-size: larger;" href="/user/favorites" class="fav-on" >
+        <i id="fav" class="fas fa-cocktail ml-5">
+            <p id="fav" class="remove-favorite-font">Remove from Favorites</p>
+        </i>
     </a>
     {% endif %}
     {% endif %}
@@ -23,12 +27,12 @@
     
     <div class="d-flex mt-4 mb-0">
             <form id="{{drink.id}}form" class="range-field w-15" action="/drink/{{drink.id}}" method="POST">
-                <button id='rate_btn' class="btn btn-primary mr-5" type="submit">Update Rating</button>
+                <button class="btn btn-primary mr-5" id="rate_btn" type="submit">Update Rating</button>
                 <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
                 {% if rating == None %}
-                <input id="slider" class="border-0" type="range" min="0" max="5" step="0.5" value="0"/>
+                <input id="slider" class="border-0" type="range" min="0" max="5" step="1" value="0"/>
                 {% else %}
-                <input id="slider" class="border-0" type="range" min="0" max="5" step="0.5" value="{{rating.rating}}"/>
+                <input id="slider" class="border-0" type="range" min="0" max="5" step="1" value="{{rating.rating}}"/>
                 {% endif %}
                 <span class="font-weight-bold indigo-text ml-2 mt-1">5</span>
             </form>

@@ -56,7 +56,6 @@ $('#rate_btn').on('click', function(evt) {
     const ind = evt.target.parentNode.id.indexOf('f');
     const id = evt.target.parentNode.id.substr(0,ind);
     addRate(rating, id);
-
 })
 
 async function addRate(rating, id) {
@@ -65,7 +64,7 @@ async function addRate(rating, id) {
     });
 }
 
-// Removing Favorited
+// Removing a Favorite
 $('.fav-remove').on('click', function(evt) {
     const ind = evt.target.id.indexOf('r');
     const id = evt.target.id.substr(0,ind);
@@ -80,7 +79,7 @@ async function removeFav(id) {
 };
 
 // User Recommending/Removal
-$('.btn-success').on('click', function(evt) {
+$('.btn-outline-success').on('click', function(evt) {
     const ind = evt.target.id.indexOf('r');
     const id = evt.target.id.substr(0,ind);
     window.location.href = `/user/recommend/form${id}`

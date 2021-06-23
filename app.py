@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = "raise_a_spirit"
+app.static_folder = 'static'
 # toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
