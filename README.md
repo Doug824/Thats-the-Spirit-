@@ -1,2 +1,1 @@
-### API Link:
-#### https://www.thecocktaildb.com/api.php
+### API Link: #### https://www.thecocktaildb.com/api.php
