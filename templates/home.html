@@ -8,7 +8,9 @@
     {% for drink in distinct_drinks %}
     <div class="column col-xs-1 col-md-4 col-lg-2">
         <div class="card mx-auto mt-3 d-inline-block align-top">
-            <img class="card-img mt-3 px-3" src="{{drink.image}}" alt="Card image cap">
+            <a href="/drinks/{{drink.id}}">
+                <img class="card-img mt-3 px-3" src="{{drink.image}}" alt="Card image cap">
+            </a>
             <div class="card-body">
             <h5 class="card-title">{{drink.name}}</h5>
             <a href="/drinks/{{drink.id}}" class="btn btn-primary" id="card-btn">More Info</a>

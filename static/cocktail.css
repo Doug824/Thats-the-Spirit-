@@ -40,7 +40,7 @@ body {
     color:rgb(240, 236, 223);
 }
 
-#H3-drink-text {
+#H3-drink-text, #fav-table {
     color:rgb(240, 236, 223);
 }
 
@@ -59,27 +59,18 @@ body {
     border-color:rgba(221, 73, 15, 0.8);
 }
 
-#card-btn:hover {
+#card-btn:hover, .btn-primary:hover {
     background-color: rgb(197, 151, 186);
     color: rgba(221, 73, 15, 0.8);
 }
 
-
 /* Favorites Buttons */
-.fav-off {
+.fav-off, .fav-on:hover, .arrow, #drink-link, #arrow {
     color:rgba(221, 73, 15, 0.8);
 }
 
-.fav-off:hover {
-    color:rgb(80, 63, 76);
-}
-
-.fav-on {
+.fav-on, .fav-off:hover {
     color: rgb(80, 63, 76);
-}
-
-.fav-on:hover {
-    color:rgba(221, 73, 15, 0.8);
 }
 
 .add-favorite-font {
@@ -99,46 +90,7 @@ body {
     border-color:rgba(221, 73, 15, 0.8);
 }
 
-.btn-primary:hover {
-    background-color: rgb(197, 151, 186);
-    color: rgba(221, 73, 15, 0.8);
-}
-
-.arrow {
-    color: rgba(221, 73, 15, 0.8);
-}
-
-/* Favorites Table */
-#fav-table {
-    color:rgb(240, 236, 223);
-}
-
-#drink-link {
-    color:rgba(221, 73, 15, 0.8);
-}
-
-#drink-link:hover {
-    color:rgba(252, 117, 64, 0.932);
-}
-
-#arrow {
-    color:rgba(221, 73, 15, 0.8);
-}
-
-#arrow:hover {
-    color:rgba(252, 117, 64, 0.932)
-}
-
-/* Recommends Table */
-#fav-table {
-    color:rgb(240, 236, 223);
-}
-
-#drink-link {
-    color:rgba(221, 73, 15, 0.8);
-}
-
-#drink-link:hover {
+#drink-link:hover, #arrow:hover {
     color:rgba(252, 117, 64, 0.932);
 }
 

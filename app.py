@@ -257,13 +257,21 @@ def get_favs():
         drink_id = request.json['drinkId']
         
         fav_check = Favorite.query.filter(Favorite.drink_id==drink_id).filter(Favorite.user_id == user_id).first()
-        if fav_check is None:
+        print("********fav_check********")
+        print(fav_check)
+        if fav_check is None: 
+            print("****BEFORE NEW_FAV******")
             new_fav = Favorite(user_id=user_id, drink_id=drink_id)
+            print("*****CREATED NEW_FAV****")
             db.session.add(new_fav)
             db.session.commit()
+            print("*******DB SESSION???*******")
             favs = Favorite.query.filter(Favorite.user_id==user_id).all()
             drinks = get_fav_drink_dict(favs)
             drink_ingreds = get_fav_drink_ingredients(drinks)
+            print(drinks)
+            print(drink_ingreds)
+            print("*********drink stuff******")
         else:
             delete_fav = Favorite.query.get(fav_check.id)
             db.session.delete(delete_fav)
