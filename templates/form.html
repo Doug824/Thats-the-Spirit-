@@ -3,7 +3,7 @@
 {% block body %}
 
 <div class="container col-xs-1 col-md-6 mt-5">
-    <h3 class="mb-3">Please select who you would like your recommendation sent to</h3>
+    <h3 class="mb-3" id="H3-drink-text">Please select who you would like your recommendation sent to</h3>
     <form action="/user/recommend/form{{drink_id}}" method="POST">
         {{ form.hidden_tag() }}
 

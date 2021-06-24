@@ -4,8 +4,8 @@
 <div class="container col-12">
     <div class="row">
         {% if recommends == None and favs == None %}
-        <h3 class="mt-4 mb-0 ml-4 col-12" class="H3-drink-text">Take a look at some of these drinks:</h3>
-        <footer class="mt-0 mb-4 ml-5" class="H3-drink-text">(Please add to your favorites list to start getting recommendations)</footer>
+        <h3 class="mt-4 mb-0 ml-4 col-12" id="H3-drink-text">Take a look at some of these drinks:</h3>
+        <footer class="mt-0 mb-4 ml-5" id="H3-drink-text">(Please add to your favorites list to start getting recommendations)</footer>
         {% for drink in drinks %}
         <div class="column col-xs-1 col-md-4 col-lg-2">
             <div class="card mx-2 mb-3 d-inline-block align-top">
@@ -22,8 +22,8 @@
         {% endfor %}
         {% elif favs == None %}
 
-        <h3 class="mt-4 mb-0 ml-4 col-12" class="H3-drink-text">Take a look at some of these high-rated drinks:</h3>
-        <footer class="mt-0 mb-4 ml-5" class="H3-drink-text">(Please add to your favorites list to start getting recommendations)</footer>
+        <h3 class="mt-4 mb-0 ml-4 col-12" id="H3-drink-text">Take a look at some of these high-rated drinks:</h3>
+        <footer class="mt-0 mb-4 ml-5" id="H3-drink-text">(Please add to your favorites list to start getting recommendations)</footer>
         {% for drink in ratings %}
 
         <div class="column col-xs-1 col-md-4 col-lg-2">
@@ -41,7 +41,7 @@
         {% endfor %}
         {% else %}
 
-        <h3 class="my-4 ml-4 col-12" class="H3-drink-text">Here are some recommended drinks based on your favorite Drinks:</h3>
+        <h3 class="my-4 ml-4 col-12" id="H3-drink-text">Here are some recommended drinks based on your favorite Drinks:</h3>
         {% for drink in recommends %}
         <div class="column mt-2 col-xs-1 col-md-4 col-lg-2">
             <div class="card mx-2 mb-3 d-inline-block align-top">
