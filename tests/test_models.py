@@ -21,8 +21,7 @@ class CocktailModelsTestCase(TestCase):
             first_name='test',
             last_name='user',
             password='test1',
-            email='test1@test.com',
-        )     
+            email='test1@test.com',)     
         self.user_id = 11111
         self.user.id = self.user_id
         db.session.add(self.user)
