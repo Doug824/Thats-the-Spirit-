@@ -5,7 +5,7 @@
 Thats the Spirit is a Punny Web application that allows users to find and learn how to make new Cocktails. 
 There is a search function with as well as a library with the cocktail name and image because we all eat with our eyes first! If a user likes a cocktail, they can rate and/or favorite the cocktail. A user is also given reccomendations based on their favorite drinks and can even send other users reccomendations!
 
-* Link to the API: https://www.thecocktaildb.com/ 
+* Link to the API: https://www.thecocktaildb.com/api.php
 * Link to That's the Spirit!: Coming Soon!
 
 
